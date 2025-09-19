@@ -2,29 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 //==================================================================
-// DATA: All data is now inside this file
-//==================================================================
-const gitaWisdom = {
-  compassion: [ { verse: "Chapter 6, Verse 29", text: "A true yogi observes Me in all beings, and also sees every being in Me. Indeed, the self-realized person sees Me, the same Supreme Lord, everywhere.", explanation: "True compassion arises when you see the divine spark in every living being, just as it is within you. This understanding removes judgment and fosters a sense of universal family." } ],
-  detachment: [ { verse: "Chapter 5, Verse 10", text: "One who performs his duty without attachment, surrendering the results unto the Supreme Lord, is unaffected by sinful action, as the lotus leaf is untouched by water.", explanation: "Detachment is not about being cold or uncaring. It's about performing your actions with full dedication while mentally offering the results to a higher power, remaining peaceful and unaffected, like a lotus leaf on water." } ],
-  fearlessness: [ { verse: "Chapter 16, Verse 1", text: "The Supreme Personality of Godhead said: Fearlessness; purification of one's existence; cultivation of spiritual knowledge... these transcendental qualities, O son of Bharata, belong to godly men endowed with divine nature.", explanation: "Fearlessness is the very first divine quality mentioned. It comes from true knowledge and unwavering faith that your true self, the soul, is eternal and cannot be harmed." } ],
-  forgiveness: [ { verse: "Chapter 12, Verse 13", text: "One who is not envious but is a kind friend to all living entities, who does not think himself a proprietor and is free from false ego, who is equal in both happiness and distress, who is tolerant...", explanation: "To be a kind friend to all beings requires a forgiving heart. Forgiveness frees you from the heavy burden of resentment and allows you to maintain inner peace and equanimity." } ],
-  peace: [ { verse: "Chapter 2, Verse 70", text: "A person who is not disturbed by the incessant flow of desires—that enter like rivers into the ocean, which is ever being filled but is always still—can alone achieve peace, and not the man who strives to satisfy such desires.", explanation: "Inner peace is achieved not by eliminating all external disturbances, but by developing a mind so vast and stable, like the ocean, that it can absorb life's challenges without losing its calm." } ],
-  humility: [ { verse: "Chapter 13, Verse 8", text: "Humility; pridelessness; nonviolence; tolerance; simplicity... and self-control—these I declare to be knowledge, and whatever exists besides this is ignorance.", explanation: "True knowledge begins with humility. It is the understanding that the ego is a limitation and that there is a vast, divine intelligence beyond our own small selves. Humility opens the door to learning and grace." } ],
-  desire: [ { verse: "Chapter 3, Verse 37", text: "The Supreme Personality of Godhead said: It is lust only, Arjuna, which is born of contact with the material mode of passion and later transformed into wrath, and which is the all-devouring sinful enemy of this world.", explanation: "Uncontrolled desire is identified as the root enemy. It creates a fire of craving that is never satisfied, leading to frustration, anger, and a constant state of restlessness. The key is to manage and purify desire, not be ruled by it." } ],
-  anger: [ { verse: "Chapter 2, Verse 63", text: "From anger, complete delusion arises, and from delusion, bewilderment of memory. When memory is bewildered, intelligence is lost, and when intelligence is lost one falls down again into the material pool.", explanation: "Anger is a poison for clarity. This verse traces its destructive path: anger clouds judgment, confuses the mind, destroys intellect, and ultimately leads to one's downfall. Recognize it as a warning sign to pause and seek calm." } ],
-  greed: [ { verse: "Chapter 16, Verse 21", text: "There are three gates leading to this hell—lust, anger, and greed. Every sane man should give these up, for they lead to the degradation of the soul.", explanation: "Greed, along with lust and anger, is described as a gateway to suffering. It's an insatiable hunger that binds the soul to a cycle of wanting and dissatisfaction. Cultivating contentment is its antidote." } ],
-  ego: [ { verse: "Chapter 3, Verse 27", text: "The spirit soul bewildered by the influence of false ego thinks himself the doer of activities that are in actuality carried out by the three modes of material nature.", explanation: "The ego makes us believe we are the sole controller and doer, leading to pride in success and despair in failure. Wisdom is recognizing that we are instruments of a larger cosmic plan, which helps us act with humility." } ],
-  fear: [ { verse: "Chapter 2, Verse 40", text: "In this endeavor there is no loss or diminution, and a little advancement on this path can protect one from the most dangerous type of fear.", explanation: "The greatest fear is that of annihilation or failure. Krishna assures us that any small step taken on the spiritual path is never wasted and provides a shield against the deepest existential fears." } ],
-  delusion: [ { verse: "Chapter 2, Verse 72", text: "That is the way of the spiritual and godly life, after attaining which a man is not bewildered. If one is thus situated even at the hour of death, one can enter into the kingdom of God.", explanation: "Delusion (Moha) is seeing the world incorrectly, primarily by identifying with the temporary body instead of the eternal soul. Spiritual practice is the process of removing this delusion to see reality as it is." } ],
-  grief: [ { verse: "Chapter 2, Verse 11", text: "The Supreme Personality of Godhead said: While speaking learned words, you are mourning for what is not worthy of grief. Those who are wise lament neither for the living nor for the dead.", explanation: "This is Krishna's first instruction to Arjuna. Wisdom reveals that the true self is eternal. Grief arises from attachment to the temporary forms and situations of life. Understanding this brings immense strength and perspective." } ],
-  jealousy: [ { verse: "Chapter 9, Verse 1", text: "The Supreme Personality of Godhead said: My dear Arjuna, because you are never envious of Me, I shall impart to you this most confidential knowledge and realization, by which you shall be relieved of the miseries of material existence.", explanation: "Freedom from envy and jealousy is a prerequisite for receiving higher knowledge. Jealousy clouds the heart and prevents one from appreciating the divine plan and the good fortune of others. A non-envious heart is open to wisdom." } ],
-  surrender: [ { verse: "Chapter 18, Verse 66", text: "Abandon all varieties of religion and just surrender unto Me. I shall deliver you from all sinful reactions. Do not fear.", explanation: "This is considered the ultimate instruction. Surrender is not a sign of weakness, but of ultimate trust. It means giving up the illusion of control and aligning your will with the divine, who then takes charge of your well-being." } ],
-  equanimity: [ { verse: "Chapter 2, Verse 48", text: "Perform your duty equipoised, O Arjuna, abandoning all attachment to success or failure. Such equanimity is called yoga.", explanation: "Equanimity is the essence of Yoga in action. It is the ability to remain balanced and centered amidst life's dualities—pleasure and pain, victory and defeat. This steadiness of mind is a sign of true inner strength." } ],
-  contentment: [ { verse: "Chapter 12, Verse 14", text: "That devotee of Mine who is always satisfied, self-controlled, and engaged in devotional service with determination, his mind and intelligence fixed on Me—he is very dear to Me.", explanation: "Contentment is a state of being satisfied and peaceful with whatever comes your way, trusting that it is part of a divine plan. A content mind is a peaceful mind, and is considered a very dear quality to the Divine." } ]
-};
-
-//==================================================================
 // STYLES: All CSS is now inside this file
 //==================================================================
 const AppStyles = () => (
@@ -84,15 +61,16 @@ const AppStyles = () => (
     /* --- USER BAR & DROPDOWN --- */
     .user-bar-container { position: absolute; top: 20px; right: 25px; z-index: 100; }
     .user-icon-button { background: none; border: none; cursor: pointer; padding: 8px; border-radius: 50%; display: flex; color: #555; }
-    .dropdown-menu { position: absolute; top: 50px; right: 0; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); width: 200px; padding: 8px 0; }
+    .dropdown-menu { position: absolute; top: 50px; right: 0; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); width: 220px; padding: 8px 0; }
     .dropdown-menu ul { list-style: none; margin: 0; padding: 0; }
     .dropdown-menu li a { display: block; padding: 12px 20px; text-decoration: none; color: #333; }
     .dropdown-menu li a:hover { background-color: #f5f5f5; color: #6a05ad; }
-    .logout-item { border-top: 1px solid #eee; }
+    .dropdown-divider { height: 1px; margin: 8px 0; overflow: hidden; background-color: #e5e7eb; }
+    .logout-item a { color: #ef4444; font-weight: 600; }
     
-    /* --- PROFILE, HISTORY, SUGGESTIONS PAGES --- */
+    /* --- PROFILE, HISTORY, SUGGESTIONS, ABOUT PAGES --- */
     .page-container { width: 100%; display: flex; justify-content: center; align-items: flex-start; padding: 5rem 1rem 2rem 1rem; position: relative; }
-    .profile-card, .history-card, .suggestions-card { width: 100%; max-width: 800px; background: #fff; border-radius: 16px; overflow: hidden; animation: cardFadeIn 0.5s ease-out; }
+    .profile-card, .history-card, .suggestions-card, .about-card { width: 100%; max-width: 800px; background: #fff; border-radius: 16px; overflow: hidden; animation: cardFadeIn 0.5s ease-out; }
     .profile-header { background: linear-gradient(135deg, #a855f7, #6a05ad); color: #fff; padding: 2rem; text-align: center; }
     .profile-avatar { width: 90px; height: 90px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; border: 4px solid #fff; }
     .profile-avatar span { font-size: 2.5rem; }
@@ -101,9 +79,9 @@ const AppStyles = () => (
     .profile-footer { padding: 1.5rem; background: #f9f9f9; text-align: center; }
     .back-button { background: none; border: 1px solid #c4b5fd; color: #8b5cf6; padding: 0.6rem 1.2rem; border-radius: 50px; cursor: pointer; transition: background-color 0.2s, color 0.2s; }
     .back-button:hover { background-color: #8b5cf6; color: #fff; }
-    .history-header, .suggestions-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; background: #f9f9f9; border-bottom: 1px solid #eee; }
-    .history-header h1, .suggestions-header h1 { margin: 0; font-size: 1.5rem; color: #3d1d63; }
-    .history-body, .suggestions-body { padding: 1rem 2rem 2rem; max-height: 70vh; overflow-y: auto; }
+    .history-header, .suggestions-header, .about-header { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; background: #f9f9f9; border-bottom: 1px solid #eee; }
+    .history-header h1, .suggestions-header h1, .about-header h1 { margin: 0; font-size: 1.5rem; color: #3d1d63; }
+    .history-body, .suggestions-body, .about-body { padding: 1rem 2.5rem 2.5rem; max-height: 70vh; overflow-y: auto; }
     .history-list { list-style: none; padding: 0; }
     .history-item { padding: 1.5rem 0; border-bottom: 1px solid #f0f0f0; }
     .suggestion-section { margin-bottom: 2rem; }
@@ -111,6 +89,12 @@ const AppStyles = () => (
     .suggestion-list { list-style: none; padding: 0; }
     .suggestion-item { margin-bottom: 0.8rem; line-height: 1.7; }
     .suggestion-item a { color: #8b5cf6; text-decoration: none; }
+    .about-body p { line-height: 1.8; margin-bottom: 1rem; }
+    .about-body strong { color: #3d1d63; }
+    .about-links { list-style: none; padding: 0; margin-top: 2rem; }
+    .about-links li { margin-bottom: 0.8rem; }
+    .about-links a { color: #8b5cf6; text-decoration: none; font-weight: 600; }
+    .about-links a:hover { text-decoration: underline; }
 
     @keyframes cardFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
@@ -137,7 +121,19 @@ function UserBar({ onNavigate, onLogout }) {
   return (
     <div className="user-bar-container" ref={dropdownRef}>
       <button onClick={toggleDropdown} className="user-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
-      {isOpen && ( <div className="dropdown-menu"><ul><li><a href="#" onClick={(e) => handleNavigationClick(e, 'profile')}>Profile</a></li><li><a href="#" onClick={(e) => handleNavigationClick(e, 'history')}>History</a></li><li><a href="#" onClick={(e) => handleNavigationClick(e, 'suggestions')}>Suggestions</a></li><li className="logout-item"><a href="#" onClick={handleLogoutClick}>Logout</a></li></ul></div> )}
+      {isOpen && (
+        <div className="dropdown-menu">
+          <ul>
+            <li><a href="#" onClick={(e) => handleNavigationClick(e, 'profile')}>Profile</a></li>
+            <li><a href="#" onClick={(e) => handleNavigationClick(e, 'history')}>History</a></li>
+            <li><a href="#" onClick={(e) => handleNavigationClick(e, 'suggestions')}>Suggestions</a></li>
+            {/* --- NEW LINK ADDED --- */}
+            <li><a href="#" onClick={(e) => handleNavigationClick(e, 'about')}>About</a></li>
+            <li className="dropdown-divider"></li>
+            <li className="logout-item"><a href="#" onClick={handleLogoutClick}>Logout</a></li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
@@ -194,7 +190,6 @@ function GuidancePage({ onNavigate, onLogout }) {
       <main>
         <h2>How are you feeling today?</h2>
         <div className="emotion-selector">{emotions.map(emotion => (<button key={emotion} onClick={() => handleEmotionClick(emotion)} className={selectedEmotion === emotion ? 'selected' : ''} disabled={isLoading}>{emotion.charAt(0).toUpperCase() + emotion.slice(1)}</button>))}</div>
-        
         <div className="problem-input-section">
             <h2>Or, describe your problem</h2>
             <form onSubmit={handleCustomSubmit}>
@@ -202,25 +197,13 @@ function GuidancePage({ onNavigate, onLogout }) {
                 <button type="submit" className="problem-submit-button" disabled={isLoading || !customProblem.trim()}>Find Wisdom for My Problem</button>
             </form>
         </div>
-
         {isLoading && <div className="loading-spinner"></div>}
         {error && !isLoading && <p className="error-message">{error}</p>}
         {solution && !isLoading && (
           <>
-            <div className="solution-card">
-              <h3>Wisdom for your situation</h3>
-              <h4>{solution.verse}</h4>
-              <p className="verse-text">"{solution.text}"</p>
-              <p className="explanation">{solution.explanation}</p>
-            </div>
+            <div className="solution-card"><h3>Wisdom for your situation</h3><h4>{solution.verse}</h4><p className="verse-text">"{solution.text}"</p><p className="explanation">{solution.explanation}</p></div>
             <div className="another-wisdom-container">
-              <button 
-                className="another-wisdom-button"
-                onClick={() => getWisdom(lastQuery.emotion ? { emotion: lastQuery.emotion } : { problem: lastQuery.problem }, lastQuery)}
-                disabled={isLoading}
-              >
-                Find Another Verse
-              </button>
+              <button className="another-wisdom-button" onClick={() => getWisdom(lastQuery.emotion ? { emotion: lastQuery.emotion } : { problem: lastQuery.problem }, lastQuery)} disabled={isLoading}>Find Another Verse</button>
             </div>
           </>
         )}
@@ -360,37 +343,25 @@ function HistoryPage({ onNavigate, onLogout }) {
     );
 }
 
-// --- THIS IS THE CORRECTED COMPONENT ---
 function SuggestionsPage({ onNavigate, onLogout }) {
     return (
       <div className="page-container">
         <UserBar onNavigate={onNavigate} onLogout={onLogout} />
         <div className="suggestions-card">
-            <div className="suggestions-header">
-                <h1>Further Guidance</h1>
-                <button onClick={() => onNavigate('guidance')} className="back-button">← Back to Guidance</button>
-            </div>
+            <div className="suggestions-header"><h1>Further Guidance</h1><button onClick={() => onNavigate('guidance')} className="back-button">← Back to Guidance</button></div>
             <div className="suggestions-body">
                 <div className="suggestion-section">
                     <h2 className="suggestion-title">Recommended Reading</h2>
                     <ul className="suggestion-list">
-                        <li className="suggestion-item"><a href="https://www.amazon.com/Bhagavad-Gita-Eknath-Easwaran/dp/1586380192" target="_blank" rel="noopener noreferrer">The Bhagavad Gita by Eknath Easwaran</a> - A highly readable and poetic translation, perfect for beginners.</li>
-                        <li className="suggestion-item"><a href="https://www.gita-society.com/scriptures/gita-unveiled-english.pdf" target="_blank" rel="noopener noreferrer">The Bhagavad Gita by Swami Sivananda (PDF)</a> - A classic commentary from a renowned spiritual master.</li>
+                        <li className="suggestion-item"><a href="https://www.amazon.com/Bhagavad-Gita-Eknath-Easwaran/dp/1586380192" target="_blank" rel="noopener noreferrer">The Bhagavad Gita by Eknath Easwaran</a></li>
+                        <li className="suggestion-item"><a href="https://www.gita-society.com/scriptures/gita-unveiled-english.pdf" target="_blank" rel="noopener noreferrer">The Bhagavad Gita by Swami Sivananda (PDF)</a></li>
                     </ul>
                 </div>
                 <div className="suggestion-section">
-                    <h2 className="suggestion-title">Online Discourses (Videos)</h2>
+                    <h2 className="suggestion-title">Online Discourses</h2>
                     <ul className="suggestion-list">
-                        <li className="suggestion-item"><a href="https://www.youtube.com/watch?v=pYquV_bV_jA&list=PLjF8gGBEXce00M12vXAnQ-T_dote-h_h_" target="_blank" rel="noopener noreferrer">Lectures by Swami Sarvapriyananda</a> - Clear, engaging, and profound talks on the Gita and Vedanta.</li>
-                        <li className="suggestion-item"><a href="https://www.youtube.com/@Sadhguru" target="_blank" rel="noopener noreferrer">Sadhguru on the Gita</a> - Practical wisdom and insights for modern life.</li>
-                    </ul>
-                </div>
-                {/* --- THIS SECTION IS NOW RESTORED --- */}
-                <div className="suggestion-section">
-                    <h2 className="suggestion-title">Practical Steps</h2>
-                    <ul className="suggestion-list">
-                        <li className="suggestion-item"><strong>Start a 5-Minute Daily Meditation:</strong> Focus on your breath. The Gita emphasizes a calm and steady mind as the foundation for wisdom.</li>
-                        <li className="suggestion-item"><strong>Practice Karma Yoga:</strong> Perform one action today without expecting any personal reward. Do it simply because it needs to be done. This is the essence of selfless action.</li>
+                        <li><a href="https://www.youtube.com/watch?v=pYquV_bV_jA&list=PLjF8gGBEXce00M12vXAnQ-T_dote-h_h_" target="_blank" rel="noopener noreferrer">Lectures by Swami Sarvapriyananda</a></li>
+                        <li><a href="https://www.youtube.com/@Sadhguru" target="_blank" rel="noopener noreferrer">Sadhguru on the Gita</a></li>
                     </ul>
                 </div>
             </div>
@@ -398,6 +369,43 @@ function SuggestionsPage({ onNavigate, onLogout }) {
       </div>
     );
 }
+
+//==================================================================
+// NEW COMPONENT 8: AboutPage
+//==================================================================
+function AboutPage({ onNavigate, onLogout }) {
+    return (
+      <div className="page-container">
+        <UserBar onNavigate={onNavigate} onLogout={onLogout} />
+        <div className="about-card">
+            <div className="about-header">
+                <h1>About This Project</h1>
+                <button onClick={() => onNavigate('guidance')} className="back-button">← Back to Guidance</button>
+            </div>
+            <div className="about-body">
+                <p>
+                    This project was created by <strong>Yash Dilip Sahane</strong>, a final year Electronics and Telecommunication engineering student from Smt. Kashibai Navale College Of Engineering, Pune.
+                </p>
+                <p>
+                    Gita-Fy aims to bring the timeless wisdom of the Bhagavad Gita to a modern audience, offering guidance and clarity for everyday problems through the power of AI.
+                </p>
+                <ul className="about-links">
+                    <li>
+                        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/yash-sahane-5a6340219" target="_blank" rel="noopener noreferrer">yash-sahane-5a6340219</a>
+                    </li>
+                    <li>
+                        <strong>GitHub:</strong> <a href="https://github.com/yashsahane-eng" target="_blank" rel="noopener noreferrer">yashsahane-eng</a>
+                    </li>
+                    <li>
+                        <strong>Email:</strong> <a href="mailto:yashsahane.skncoe.entc@gmail.com">yashsahane.skncoe.entc@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+      </div>
+    );
+}
+
 
 //==================================================================
 // FINAL APP COMPONENT (The Manager)
@@ -446,6 +454,8 @@ function App() {
           {currentPage === 'profile' && <ProfilePage onNavigate={navigate} onLogout={handleLogout} />}
           {currentPage === 'history' && <HistoryPage onNavigate={navigate} onLogout={handleLogout} />}
           {currentPage === 'suggestions' && <SuggestionsPage onNavigate={navigate} onLogout={handleLogout} />}
+          {/* --- NEW ROUTE ADDED --- */}
+          {currentPage === 'about' && <AboutPage onNavigate={navigate} onLogout={handleLogout} />}
         </>
       ) : (
         <>
