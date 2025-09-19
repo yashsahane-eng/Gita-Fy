@@ -1,4 +1,4 @@
-/* src/LoginPage.css */
+/* src/LoginPage.css (Final Version) */
 
 /* --- Main Layout: Two Columns --- */
 .login-page-wrapper {
@@ -51,9 +51,9 @@
 }
 
 .login-logo h1 {
-    font-size: 2.5rem;
-    color: #6a05ad;
-    margin-bottom: 2rem;
+  font-size: 2.5rem;
+  color: #6a05ad;
+  margin-bottom: 2rem;
 }
 
 .input-group {
@@ -118,7 +118,7 @@
 }
 
 
-/* --- Decorations (Copied from previous version, no changes needed) --- */
+/* --- Decorations --- */
 .decoration { position: absolute; color: #fff; }
 .star { text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); animation: pulse 4s infinite ease-in-out; opacity: 0.7; }
 #star1 { top: 10%; left: 5%; font-size: 1.5rem; animation-delay: -1s; }
@@ -143,3 +143,32 @@
 @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } }
 @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* --- Styles for Error Message and Navigation Link --- */
+
+.error-message {
+  color: #c72c41;
+  background-color: #fddfe2;
+  border: 1px solid #f0a0a9;
+  border-radius: 6px;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+.navigation-link {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.navigation-link a {
+  color: #6a05ad;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.navigation-link a:hover {
+  text-decoration: underline;
+}
