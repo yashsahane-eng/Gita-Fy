@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        // This now points to your LIVE backend on Render
+        // This is the only change:
+        // It now points to your LIVE backend on Render
         target: 'https://gita-fy.onrender.com', 
         changeOrigin: true,
       },
