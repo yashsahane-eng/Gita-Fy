@@ -5,7 +5,7 @@ import axios from 'axios';
 // API Configuration: This is the main change!
 //==================================================================
 const api = axios.create({
-  baseURL: 'https://gita-fy.onrender.com/api' // Using your live Render URL
+  baseURL: 'https://api.render.com/deploy/srv-d36t39je5dus738r51tg?key=pLopAA2Qpzc' // Using your live Render URL
 });
 
 //==================================================================
