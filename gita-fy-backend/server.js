@@ -1,61 +1,36 @@
-// Import the tools we installed
+// --- IMPORT DEPENDENCIES ---
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config(); // This line loads the .env file
+require('dotenv').config(); // loads .env locally, Render ignores this and uses Dashboard vars
 
-// Create our Express app
+// --- CREATE EXPRESS APP ---
 const app = express();
-const PORT = process.env.PORT || 5000; // Use the port from our .env file or default to 5000
+const PORT = process.env.PORT || 5000;
 
 // --- MIDDLEWARE ---
-// This allows our React app to send requests to this server
-app.use(cors());
-// This allows our server to understand JSON data
-app.use(express.json());
+app.use(cors()); // allow cross-origin requests
+app.use(express.json()); // parse JSON bodies
 
 // --- DATABASE CONNECTION ---
-// Get the connection string from our .env file
-const mongoURI = process.env.MONGO_URI;
-
-mongoose.connect(mongoURI, {
+mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => {
-  // This message will show in the terminal if the connection is successful
-  console.log("MongoDB connected successfully.");
-})
-.catch(err => {
-  // This message will show if there is an error
-  console.error("MongoDB connection error:", err);
-});
+.then(() => console.log("✅ MongoDB connected successfully."))
+.catch(err => console.error("❌ MongoDB connection error:", err));
 
-
-// --- A SIMPLE TEST ROUTE ---
-// This is a basic "endpoint" to test if our server is working
+// --- TEST ROUTE ---
 app.get('/', (req, res) => {
-  res.send('Gita-Fy Backend is running!');
+  res.send('🚀 Gita-Fy Backend is running!');
 });
-
 
 // --- API ROUTES ---
-// This tells our server to use the user routes we created
-app.use('/api/users', require('./routes/users'));
-
-// --- THIS IS THE ONLY NEW LINE YOU NEED TO ADD ---
-// This tells our server to use the new history routes
-app.use('/api/history', require('./routes/history'));
-
 app.use('/api/users', require('./routes/users'));
 app.use('/api/history', require('./routes/history'));
+app.use('/api/gita', require('./routes/gita'));
 
-// --- ADD THIS NEW LINE ---
-app.use('/api/gita', require('./routes/gita')); 
-
-// --- START THE SERVER ---
-// This tells our app to listen for requests on the specified port
+// --- START SERVER ---
 app.listen(PORT, () => {
-  // This message will show in the terminal once the server is running
-  console.log(`Server is running on port: ${PORT}`);
+  console.log(`🌐 Server is running on port: ${PORT}`);
 });
