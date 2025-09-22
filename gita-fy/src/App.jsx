@@ -2,6 +2,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 //==================================================================
+// API Configuration: This is the main change!
+//==================================================================
+const api = axios.create({
+  baseURL: 'https://gita-fy.onrender.com/api' // Using your live Render URL
+});
+
+//==================================================================
 // STYLES: All CSS is now inside this file
 //==================================================================
 const AppStyles = () => (
@@ -152,14 +159,14 @@ function GuidancePage({ onNavigate, onLogout }) {
     setSolution(null);
     setLastQuery(query);
     try {
-      const response = await axios.post('/api/gita/get-wisdom', payload);
+      const response = await api.post('/gita/get-wisdom', payload);
       const aiSolution = response.data;
       setSolution(aiSolution);
       const token = localStorage.getItem('token');
       if (!token) return;
       const config = { headers: { 'x-auth-token': token } };
       const historyPayload = query.emotion ? { emotion: query.emotion, ...aiSolution } : { emotion: 'Custom: ' + query.problem.substring(0, 20) + '...', ...aiSolution };
-      await axios.post('/api/history', historyPayload, config);
+      await api.post('/history', historyPayload, config);
     } catch (err) {
       console.error('AI Error:', err);
       setError('Sorry, wisdom could not be found. Please try again.');
@@ -220,7 +227,7 @@ function ProfilePage({ onNavigate, onLogout }) {
       try {
         const token = localStorage.getItem('token');
         const config = { headers: { 'x-auth-token': token } };
-        const res = await axios.get('/api/users', config);
+        const res = await api.get('/users', config);
         setUser(res.data);
       } catch (err) { console.error('Could not fetch user data', err); }
       finally { setLoading(false); }
@@ -254,7 +261,7 @@ function RegisterPage({ onRegisterSuccess, onNavigate }) {
         e.preventDefault();
         setError('');
         try {
-            const response = await axios.post('/api/users/register', { username, email, password });
+            const response = await api.post('/users/register', { username, email, password });
             localStorage.setItem('token', response.data.token);
             onRegisterSuccess();
         } catch (err) { setError(err.response ? err.response.data.message : 'Registration failed!'); }
@@ -289,7 +296,7 @@ function LoginPage({ onLogin, onNavigate }) {
     e.preventDefault();
     setError('');
     try {
-      const response = await axios.post('/api/users/login', { email, password });
+      const response = await api.post('/users/login', { email, password });
       localStorage.setItem('token', response.data.token);
       onLogin();
     } catch (err) { setError(err.response ? err.response.data.message : 'Login failed!'); }
@@ -323,7 +330,7 @@ function HistoryPage({ onNavigate, onLogout }) {
             try {
                 const token = localStorage.getItem('token');
                 const config = { headers: { 'x-auth-token': token } };
-                const res = await axios.get('/api/history', config);
+                const res = await api.get('/history', config);
                 setHistory(res.data);
             } catch (err) { console.error('Could not fetch history', err); }
             finally { setLoading(false); }
