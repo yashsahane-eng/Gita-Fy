@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
 //==================================================================
-// API Configuration: This is the main change!
+// API Configuration: THIS IS THE ONLY MAJOR CHANGE
 //==================================================================
+// We create a central 'api' object that knows the full public address of our live backend.
 const api = axios.create({
-  baseURL: 'https://api.render.com/deploy/srv-d36t39je5dus738r51tg?key=pLopAA2Qpzc' // Using your live Render URL
+  baseURL: 'https://gita-fy-1.onrender.com' // <-- PASTE YOUR LIVE RENDER URL HERE, followed by /api
 });
 
 //==================================================================
@@ -112,6 +113,7 @@ const AppStyles = () => (
 
 //==================================================================
 // All Components are now inside this file
+// All 'axios' calls have been changed to 'api'
 //==================================================================
 
 function UserBar({ onNavigate, onLogout }) {
@@ -128,19 +130,7 @@ function UserBar({ onNavigate, onLogout }) {
   return (
     <div className="user-bar-container" ref={dropdownRef}>
       <button onClick={toggleDropdown} className="user-icon-button"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
-      {isOpen && (
-        <div className="dropdown-menu">
-          <ul>
-            <li><a href="#" onClick={(e) => handleNavigationClick(e, 'profile')}>Profile</a></li>
-            <li><a href="#" onClick={(e) => handleNavigationClick(e, 'history')}>History</a></li>
-            <li><a href="#" onClick={(e) => handleNavigationClick(e, 'suggestions')}>Suggestions</a></li>
-            {/* --- NEW LINK ADDED --- */}
-            <li><a href="#" onClick={(e) => handleNavigationClick(e, 'about')}>About</a></li>
-            <li className="dropdown-divider"></li>
-            <li className="logout-item"><a href="#" onClick={handleLogoutClick}>Logout</a></li>
-          </ul>
-        </div>
-      )}
+      {isOpen && ( <div className="dropdown-menu"><ul><li><a href="#" onClick={(e) => handleNavigationClick(e, 'profile')}>Profile</a></li><li><a href="#" onClick={(e) => handleNavigationClick(e, 'history')}>History</a></li><li><a href="#" onClick={(e) => handleNavigationClick(e, 'suggestions')}>Suggestions</a></li><li><a href="#" onClick={(e) => handleNavigationClick(e, 'about')}>About</a></li><li className="dropdown-divider"></li><li className="logout-item"><a href="#" onClick={handleLogoutClick}>Logout</a></li></ul></div> )}
     </div>
   );
 }
@@ -154,9 +144,9 @@ function GuidancePage({ onNavigate, onLogout }) {
   const [customProblem, setCustomProblem] = useState('');
 
   const getWisdom = async (payload, query) => {
-    setIsLoading(true);
     setError('');
-    setSolution(null);
+    setSolution(null); 
+    setIsLoading(true);
     setLastQuery(query);
     try {
       const response = await api.post('/gita/get-wisdom', payload);
@@ -371,15 +361,19 @@ function SuggestionsPage({ onNavigate, onLogout }) {
                         <li><a href="https://www.youtube.com/@Sadhguru" target="_blank" rel="noopener noreferrer">Sadhguru on the Gita</a></li>
                     </ul>
                 </div>
+                <div className="suggestion-section">
+                  <h2 className="suggestion-title">Practical Steps</h2>
+                  <ul className="suggestion-list">
+                      <li className="suggestion-item"><strong>Start a 5-Minute Daily Meditation:</strong> Focus on your breath. The Gita emphasizes a calm and steady mind as the foundation for wisdom.</li>
+                      <li className="suggestion-item"><strong>Practice Karma Yoga:</strong> Perform one action today without expecting any personal reward. Do it simply because it needs to be done. This is the essence of selfless action.</li>
+                  </ul>
+                </div>
             </div>
         </div>
       </div>
     );
 }
 
-//==================================================================
-// NEW COMPONENT 8: AboutPage
-//==================================================================
 function AboutPage({ onNavigate, onLogout }) {
     return (
       <div className="page-container">
@@ -390,29 +384,18 @@ function AboutPage({ onNavigate, onLogout }) {
                 <button onClick={() => onNavigate('guidance')} className="back-button">← Back to Guidance</button>
             </div>
             <div className="about-body">
-                <p>
-                    This project was created by <strong>Yash Dilip Sahane</strong>, a final year Electronics and Telecommunication engineering student from Smt. Kashibai Navale College Of Engineering, Pune.
-                </p>
-                <p>
-                    Gita-Fy aims to bring the timeless wisdom of the Bhagavad Gita to a modern audience, offering guidance and clarity for everyday problems through the power of AI.
-                </p>
+                <p>This project was created by <strong>Yash Dilip Sahane</strong>, a final year Electronics and Telecommunication engineering student from Smt. Kashibai Navale College Of Engineering, Pune.</p>
+                <p>Gita-Fy aims to bring the timeless wisdom of the Bhagavad Gita to a modern audience, offering guidance and clarity for everyday problems through the power of AI.</p>
                 <ul className="about-links">
-                    <li>
-                        <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/yash-sahane-5a6340219" target="_blank" rel="noopener noreferrer">yash-sahane-5a6340219</a>
-                    </li>
-                    <li>
-                        <strong>GitHub:</strong> <a href="https://github.com/yashsahane-eng" target="_blank" rel="noopener noreferrer">yashsahane-eng</a>
-                    </li>
-                    <li>
-                        <strong>Email:</strong> <a href="mailto:yashsahane.skncoe.entc@gmail.com">yashsahane.skncoe.entc@gmail.com</a>
-                    </li>
+                    <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/yash-sahane-5a6340219" target="_blank" rel="noopener noreferrer">yash-sahane-5a6340219</a></li>
+                    <li><strong>GitHub:</strong> <a href="https://github.com/yashsahane-eng" target="_blank" rel="noopener noreferrer">yashsahane-eng</a></li>
+                    <li><strong>Email:</strong> <a href="mailto:yashsahane.skncoe.entc@gmail.com">yashsahane.skncoe.entc@gmail.com</a></li>
                 </ul>
             </div>
         </div>
       </div>
     );
 }
-
 
 //==================================================================
 // FINAL APP COMPONENT (The Manager)
@@ -461,7 +444,6 @@ function App() {
           {currentPage === 'profile' && <ProfilePage onNavigate={navigate} onLogout={handleLogout} />}
           {currentPage === 'history' && <HistoryPage onNavigate={navigate} onLogout={handleLogout} />}
           {currentPage === 'suggestions' && <SuggestionsPage onNavigate={navigate} onLogout={handleLogout} />}
-          {/* --- NEW ROUTE ADDED --- */}
           {currentPage === 'about' && <AboutPage onNavigate={navigate} onLogout={handleLogout} />}
         </>
       ) : (
@@ -475,3 +457,4 @@ function App() {
 }
 
 export default App;
+
