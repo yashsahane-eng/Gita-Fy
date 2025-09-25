@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { fetchUsers } from "./api";  // import API function
 import './LoginPage.css';
 
 // We now accept an 'onNavigate' function to switch to the register page

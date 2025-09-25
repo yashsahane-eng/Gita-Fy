@@ -1,13 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 
-//==================================================================
-// API Configuration: THIS IS THE ONLY MAJOR CHANGE
-//==================================================================
-// We create a central 'api' object that knows the full public address of our live backend.
+// Create a central API object that knows the backend address
 const api = axios.create({
-  baseURL: 'https://gita-fy-1.onrender.com' // <-- PASTE YOUR LIVE RENDER URL HERE, followed by /api
+  baseURL: 'https://gita-fy-1.onrender.com' // <-- Replace with your backend URL
 });
+
 
 //==================================================================
 // STYLES: All CSS is now inside this file

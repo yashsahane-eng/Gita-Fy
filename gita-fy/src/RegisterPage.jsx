@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './LoginPage.css'; // We will reuse the login page styles for a consistent look
+import { registerUser } from "./api";
 
 // This component will receive functions from App.jsx to work
 function RegisterPage({ onRegisterSuccess, onNavigate }) {
