@@ -52,7 +52,7 @@ Gita-Fy/
 
 ### Clone the Repo
 
-```bash
+
 git clone https://github.com/yashsahane-eng/Gita-Fy.git
 cd Gita-Fy
 ⚙ Backend Setup
